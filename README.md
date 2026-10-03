@@ -1,36 +1,40 @@
 # Agility
 
-**Pet Agility Course** — Physics obstacle course that scores a pet's speed, jump, and stamina traits.
+**A timed obstacle course for the pet you already care for.**
 
-Part of [ComputerPets](https://github.com/RicheyWorks/computerpets). Map: [computerpets-ecosystem](https://github.com/RicheyWorks/computerpets-ecosystem).
+A planned physics runner that uses each species' speed, jump, and stamina traits to shape its course.
 
-| | |
+**Stage: design scaffold.** This checkout contains a design document and a source placeholder. The experience below is planned; there is no runnable app or integrated service yet.
+
+[Status](#status) · [Planned experience](#planned-experience) · [Contributor quickstart](#contributor-quickstart) · [Game design](docs/DESIGN.md) · [Ecosystem map](https://github.com/RicheyWorks/computerpets-ecosystem)
+
+## Status
+
+| Available today | What you can inspect |
 | --- | --- |
-| Status | Design scaffold — loop and engine frozen |
-| License | MIT |
-| Tokens | Minigames never mint or burn. Tired overlay, not a dead lineage. |
-| First pet | [Meet Rui first](https://github.com/RicheyWorks/computerpets/blob/main/docs/START-HERE.md). This game is optional. |
+| [Game design](docs/DESIGN.md) | Intended behavior, boundaries, and planned dependencies. |
+| [Source placeholder](src/game.gd) | Godot Node stub; no project.godot or playable scene is checked in. |
+| [MIT license](LICENSE) | Licensing terms for the repository. |
 
-## The loop
+Gameplay, endpoints, integration arrows, and failure handling on this page describe implementation targets. No build/test harness, CI workflow, or product screenshots are included in this scaffold.
 
-The overlay already has walk and carry. Agility is the stopwatch: same body, timed gates, no combat. Reed the frog and Rui do not share a jump arc.
+## Planned experience
 
-## Who plays
+- Pick one owned pet.
+- Run a seeded daily course (same seed worldwide).
+- Missed gate = time penalty, not death.
+- Ghost of your best run + friends via Visitation ids.
 
-Players timing a body they already have.
-
-## What it is not
-
-Not combat. Reed and Rui do not share a jump arc.
-
-## Genre and engine
+### Planned technology
 
 - Genre: **Physics runner**
 - Engine: **Godot 4**
 - Stack: Godot 4.3 · GDScript · rigid-body course · speed/jump traits from overlay
 - Default surface: `Godot editor`
 
-## Architecture
+### Planned connections
+
+These arrows show intended dependencies, rather than working integrations.
 
 ```mermaid
 flowchart LR
@@ -39,71 +43,47 @@ flowchart LR
   quests -.-> agility
 ```
 
-## How you play
+## Contributor quickstart
 
-1. Pick one owned pet.
-2. Run a seeded daily course (same seed worldwide).
-3. Missed gate = time penalty, not death.
-4. Ghost of your best run + friends via Visitation ids.
+With access to this private repository, Git and PowerShell are enough to review the scaffold:
 
-## First slice
+```powershell
+git clone https://github.com/RicheyWorks/computerpets-agility.git
+Set-Location computerpets-agility
+Get-Content docs/DESIGN.md
+Get-Content src/game.gd
+```
 
-Build this and stop.
+Read [Game design](docs/DESIGN.md) before choosing implementation details. The commands above inspect the checked-in files; app installation, editor launch, and server startup become possible after a buildable project and entry point are added.
+
+### First implementation target
 
 **Daily seeded course, Rui only, ghost of your best time.**
 
 You know it works when: Physics explode: last gate. Missing trait: species default, never another animal's numbers.
 
-## Environment
+Treat this as an acceptance target for a future implementation. Start with the documented slice, add the required project setup and focused tests, and update these instructions with commands that work from a fresh clone.
 
-Godot 4.3
+## Design boundaries
 
-## Failure doctrine
+1. Minigames cannot mint or burn NFTs by themselves (Minter is the write path).
+2. Stats come from lived overlay care + Dojo caps, not cash shop.
+3. Species kits stay inside Lore. Illegal hybrids never spawn.
+4. Fail soft: the desktop overlay process is not this process.
+
+**Required failure behavior:**
 
 Physics explode → reset to last gate, never T-pose. Trait missing → species default, never another animal's numbers.
 
-Canon rules that never yield:
+## Ecosystem
 
-- 210 living kinds. No illegal hybrids.
-- Overlay pets can get tired, sick, or hide. Tokens are not burned by a minigame.
-- Desktop walk stays the main quest. Closing Agility must leave Rui walking.
+- [computerpets](https://github.com/RicheyWorks/computerpets) (traits)
+- [computerpets-motion](https://github.com/RicheyWorks/computerpets-motion) (clips)
+- [computerpets-quests](https://github.com/RicheyWorks/computerpets-quests) (daily course)
+- [computerpets-telemetry](https://github.com/RicheyWorks/computerpets-telemetry)
 
-## Neighbors
-
-- computerpets (traits)
-- computerpets-motion (clips)
-- computerpets-quests (daily course)
-- computerpets-telemetry
-
-## Layout
-
-```
-computerpets-agility/
-  README.md
-  LICENSE
-  docs/DESIGN.md
-  src/                implementation lands here
-```
-
-## Run (Windows)
-
-```powershell
-godot --path . --import; F5 in editor. Export Windows exe for overlay-adjacent play.
-```
-
-Meet Rui first via the [flagship start-here](https://github.com/RicheyWorks/computerpets/blob/main/docs/START-HERE.md). This game is optional.
-
-## Links
-
-- Flagship: [RicheyWorks/computerpets](https://github.com/RicheyWorks/computerpets)
-- This repo: [RicheyWorks/computerpets-agility](https://github.com/RicheyWorks/computerpets-agility)
-- Map: [RicheyWorks/computerpets-ecosystem](https://github.com/RicheyWorks/computerpets-ecosystem)
-- Design file: [docs/DESIGN.md](docs/DESIGN.md)
+Start with the [ComputerPets flagship](https://github.com/RicheyWorks/computerpets) for the desktop pet. This repository describes an optional extension; the [ecosystem map](https://github.com/RicheyWorks/computerpets-ecosystem) explains the broader plan.
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
----
-
-*Two hundred ten living kinds. Keep them so a line does not go quiet.*
